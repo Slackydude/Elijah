@@ -47,6 +47,7 @@ def usage():
     print "-f [final document to fetch]"
     print "-d {debug flag}"
     print "-h {help}"
+    print "-i {interactive flag}"
     print "example: BoletinGrabber.py -s 1 -f 500 -d"
 
 def main(argv):
