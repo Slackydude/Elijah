@@ -78,14 +78,11 @@ def main(argv):
                 debug = 1
         elif opt in("-i"):
             try:
-                start = int(raw_input("Please enter the start number: "))
+                start = int(raw_input("Please enter the start number (aka Boletin number): "))
                 end = int(raw_input("Please enter the final number: "))
-                if end < start:
-                    print("The final value needs to be bigger than the start value")
-                    sys.exit()
             except ValueError:
                 print ("Ooops, not a valid number")
-    if end == 0 or end > start:
+    if end == 0 or end < start:
         usage()
         sys.exit()
     else:
