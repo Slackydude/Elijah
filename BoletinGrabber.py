@@ -9,7 +9,7 @@ class BoletinGrabber:
         
     def ObtieneBoletin(self):
         if self.debug == 1:
-            for i in range(self.end+1):
+            for i in range(self.end):
                 NumeroBoletin = self.start + i
                 self.url = self.url + str(NumeroBoletin)
                 print self.url
@@ -25,7 +25,7 @@ class BoletinGrabber:
                 except:
                     print "Unexpected error1:", sys.exc_info()[0]
         else:
-            for i in range(self.end+1):
+            for i in range(self.end):
                 NumeroBoletin = self.start + i
                 self.url = self.url + str(NumeroBoletin)
                 try:
