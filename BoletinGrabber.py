@@ -9,7 +9,7 @@ class BoletinGrabber:
         
     def ObtieneBoletin(self):
         if self.debug == 1:
-            for i in range(self.end):
+            for i in range(self.end+1):
                 NumeroBoletin = self.start + i
                 self.url = self.url + str(NumeroBoletin)
                 print self.url
