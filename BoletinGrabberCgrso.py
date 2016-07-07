@@ -1,3 +1,6 @@
+# coding: UTF-8
+import xml.etree.ElementTree as ET
+import unicodecsv
 import urllib2, sys, getopt
 
 class BoletinGrabber:
@@ -5,24 +8,29 @@ class BoletinGrabber:
         self.start = start
         self.end = end
         self.debug = debug
-        self.url = "http://www.senado.cl/wspublico/tramitacion.php?boletin="
+        self.url = "http://opendata.congreso.cl/wscamaradiputados.asmx/getVotaciones_Boletin?prmBoletin="
         
     def ObtieneBoletin(self):
         if self.debug == 1:
             NumeroBoletin = self.start
             for i in range(self.start,self.end+1):
-               
+                
                 self.url = self.url + str(NumeroBoletin)
                 print self.url
                 try:
                     response = urllib2.urlopen(self.url)
                     XMLcontent = response.read()
-                    Nombre="Boletin-"+str(NumeroBoletin)+".xml"
+                    Nombre="BoletinCgreso-"+str(NumeroBoletin)+".xml"
                     f = open(Nombre,'w')
                     f.write(XMLcontent)
                     f.close
                     print 'ok'
-                    self.url = "http://www.senado.cl/wspublico/tramitacion.php?boletin="
+                  #  print Nombre
+                    
+                    tree = ET.parse(Nombre)
+                    #root = tree.getroot()
+                    
+                    self.url = "http://opendata.congreso.cl/wscamaradiputados.asmx/getVotaciones_Boletin?prmBoletin="
                     NumeroBoletin +=1
                 except:
                     print "Unexpected error1:", sys.exc_info()[0]
@@ -38,7 +46,7 @@ class BoletinGrabber:
                     f = open(Nombre,'w')
                     f.write(XMLcontent)
                     f.close
-                    self.url = "http://www.senado.cl/wspublico/tramitacion.php?boletin="
+                    self.url = "http://opendata.congreso.cl/wscamaradiputados.asmx/getVotaciones_Boletin?prmBoletin="
                     NumeroBoletin +=1
                 except:
                     print "Unexpected error:2", sys.exc_info()[0]
@@ -90,6 +98,8 @@ def main(argv):
         usage()
         sys.exit()
     else:
+        print start
+        print end
         BoletinGrabber(start, end, debug).ObtieneBoletin()
       
 if __name__ == '__main__':
